@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+  	<meta charset="UTF=8">
+    <meta http-equiv="content-language" content="ja">  	<meta name="viewport" content="width=device-witch, initial-scale=1">
+    <title>SNSアプリ</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+    	body header {
+    		text-align: right;
+    		font-weight: normal;
+    		font-size: 18px;
+    		background-color: #1f3134;
+    		line-height: 50px;
+    	}
+    </style>
+  </head>
+  <body>
+  	<header class="navbar navbar-fixed-top" role="navigation">
+  		<div class="container" style="color: white;">
+		  	<% if user_signed_in? %>
+			  こんにちは　<%= current_user.nickname %>　さん　
+			  <span class="label label-default">
+			  	<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :style=>"color: white;", data: { confirm: "よろしいですか？"} %>
+			  </span>
+			<% else %>
+			  <span class="label label-default">
+			  	<%= link_to "新規会員登録", new_user_registration_path, :style=>"color: white;" %>
+			  </span>　
+			  <span class="label label-default">
+			  <%= link_to "ログイン画面", new_user_session_path, :style=>"color: white;" %>
+			  </span>
+			<% end %>
+		</div>
+	</header>
+	<div class="container" style="padding-top: 50px">
+    	<%= yield %>
+    </div>
+  </body>
+</html>
